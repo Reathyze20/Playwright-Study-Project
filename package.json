@@ -1,0 +1,19 @@
+{
+  "name": "playwright-fe-automation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "npm run testProject": "npx playwright test --ui"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.51.0",
+    "@types/node": "^22.13.10"
+  },
+  "dependencies": {
+    "eslint": "^9.22.0"
+  }
+}
