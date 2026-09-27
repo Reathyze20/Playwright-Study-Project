@@ -1,7 +1,9 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { HelperBase } from "./helperBase";
 
+// Třída reprezentující navigaci na stránce, dědí z HelperBase
 export class NavigationPage extends HelperBase {
+  // Lokátory pro jednotlivé navigační prvky
   formsComboBoxNavigation: Locator;
   formLayoutsNavigation: Locator;
   datePickerNavigation: Locator;
@@ -24,7 +26,9 @@ export class NavigationPage extends HelperBase {
   requestPasswordNavigation: Locator;
 
   constructor(page: Page) {
-    super(page);
+    super(page); // Volání konstruktoru rodičovské třídy
+
+    // Inicializace lokátorů pro navigační prvky
     this.formsComboBoxNavigation = this.page.getByTitle("Forms");
     this.formLayoutsNavigation = this.page.getByTitle("Form Layouts");
 
@@ -53,38 +57,57 @@ export class NavigationPage extends HelperBase {
     this.requestPasswordNavigation = this.page.getByTitle("Request Password");
   }
 
+  /**
+   * Naviguje na stránku "Form Layouts"
+   */
   async formLayoutsPage() {
-    await this.selectGroupMenuItem(this.formsComboBoxNavigation);
-    await this.page.getByText("Form Layouts").click();
-    await this.waitForNumberOfSeconds(10);
+    await this.selectGroupMenuItem(this.formsComboBoxNavigation); // Rozbalí menu "Forms"
+    await this.page.getByText("Form Layouts").click(); // Klikne na položku "Form Layouts"
+    await this.waitForNumberOfSeconds(10); // Počká 10 sekund
   }
 
+  /**
+   * Naviguje na stránku "Datepicker"
+   */
   async datePickerPage() {
-    await this.selectGroupMenuItem(this.formsComboBoxNavigation);
-    await this.page.waitForTimeout(1000);
-    await this.page.getByText("Datepicker").click();
+    await this.selectGroupMenuItem(this.formsComboBoxNavigation); // Rozbalí menu "Forms"
+    await this.page.waitForTimeout(1000); // Počká 1 sekundu
+    await this.page.getByText("Datepicker").click(); // Klikne na položku "Datepicker"
   }
 
+  /**
+   * Naviguje na stránku "Smart Table"
+   */
   async smartTablePage() {
-    await this.selectGroupMenuItem(this.tablesDataComboBoxNavigation);
-    await this.page.getByText("Smart Table").click();
+    await this.selectGroupMenuItem(this.tablesDataComboBoxNavigation); // Rozbalí menu "Tables & Data"
+    await this.page.getByText("Smart Table").click(); // Klikne na položku "Smart Table"
   }
 
+  /**
+   * Naviguje na stránku "Toastr"
+   */
   async toastrPage() {
-    await this.selectGroupMenuItem(this.modalsOverlaysComboBoxNavigation);
-    await this.page.getByText("Toastr").click();
+    await this.selectGroupMenuItem(this.modalsOverlaysComboBoxNavigation); // Rozbalí menu "Modal & Overlays"
+    await this.page.getByText("Toastr").click(); // Klikne na položku "Toastr"
   }
 
+  /**
+   * Naviguje na stránku "Tooltip"
+   */
   async tooltipPage() {
-    await this.selectGroupMenuItem(this.modalsOverlaysComboBoxNavigation);
-    await this.page.getByText("Tooltip").click();
+    await this.selectGroupMenuItem(this.modalsOverlaysComboBoxNavigation); // Rozbalí menu "Modal & Overlays"
+    await this.page.getByText("Tooltip").click(); // Klikne na položku "Tooltip"
   }
 
+  /**
+   * Rozbalí skupinovou položku menu, pokud není již rozbalená
+   * @param groupMenuItem - Lokátor skupinové položky menu
+   */
   private async selectGroupMenuItem(groupMenuItem: Locator) {
-    const expandedState = await groupMenuItem.getAttribute("aria-expanded");
+    const expandedState = await groupMenuItem.getAttribute("aria-expanded"); // Zjistí, zda je menu rozbalené
 
     if (expandedState == "false") {
-      await groupMenuItem.click();
+      await groupMenuItem.click(); // Klikne na menu, pokud není rozbalené
     }
   }
 }
